@@ -1,0 +1,40 @@
+<IfModule mod_headers.c>
+    # Basic Security Headers
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Disable Directory Listing
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Base directory
+    RewriteBase /himalayanmonk/
+
+    # Redirect /products to products.php
+    RewriteRule ^products/?$ products.php [L,QSA]
+    
+    # Redirect /product/slug to product.php?slug=slug
+    RewriteRule ^product/([a-zA-Z0-9_-]+)/?$ product.php?slug=$1 [L,QSA]
+    
+    # Redirect /about to about.php
+    RewriteRule ^about/?$ about.php [L,QSA]
+    
+    # Redirect /ingredients to ingredients.php
+    RewriteRule ^ingredients/?$ ingredients.php [L,QSA]
+    
+    # Redirect /wellness-journey to wellness-journey.php
+    RewriteRule ^wellness-journey/?$ wellness-journey.php [L,QSA]
+    
+    # Redirect /contact to contact.php
+    RewriteRule ^contact/?$ contact.php [L,QSA]
+    
+    # Redirect /admin to admin/index.php
+    RewriteRule ^admin/?$ admin/index.php [L,QSA]
+</IfModule>
+
+php_value upload_max_filesize 20M
+php_value post_max_size 25M
